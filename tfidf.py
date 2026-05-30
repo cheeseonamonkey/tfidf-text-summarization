@@ -1,4 +1,4 @@
-import sys
+import re
 
 import nltk
 from nltk.stem.porter import *
@@ -8,7 +8,6 @@ from collections import Counter
 import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 import zipfile
-import os
 
 
 def gettext(xmltext) -> str:
@@ -120,9 +119,6 @@ def load_corpus(zipfilename: str) -> dict:
     with zipfile.ZipFile(zipfilename, mode="r") as archive:
         for filename in archive.namelist():
             if filename.endswith(".xml"):
-                text = ""
-                with open(filename, "r") as f:
-                    for line in f:
-                        text += str(line)
+                text = archive.read(filename).decode("ascii", errors="ignore")
                 return_dict[filename.split("/")[1]] = text
     return return_dict
