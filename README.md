@@ -44,7 +44,7 @@ To use the scripts in this repository, follow the steps below:
 ## Usage
 
 ### common.py
-This script demonstrates an example usage of the `tfidf.py` module. It imports the required functions and defines a `main()` function that takes an XML text file as input. It extracts the text from the file and computes the top 10 most frequent stemmed words using TF-IDF. The results are then printed to the console.
+This script takes a corpus zip and a target filename, extracts the text, and prints the top 10 most frequent stemmed words.
 
 To run the script, use the following command:
 ```bash
