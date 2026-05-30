@@ -67,14 +67,6 @@ def compute_tfidf(corpus: dict) -> TfidfVectorizer:
         analyzer="word",
         preprocessor=gettext,
         tokenizer=tokenizer,
-        stop_words="english",  # even more stop words
-        decode_error="ignore",
-    )
-    tfidf = TfidfVectorizer(
-        input="content",
-        analyzer="word",
-        preprocessor=gettext,
-        tokenizer=tokenizer,
         stop_words="english",
         decode_error="ignore",
     )
