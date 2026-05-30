@@ -48,7 +48,7 @@ This script demonstrates an example usage of the `tfidf.py` module. It imports t
 
 To run the script, use the following command:
 ```bash
-$ python common.py [path/to/xmlfile.xml]
+$ python common.py [path/to/corpus.zip] [filename.xml]
 ```
 
 ### summarize.py

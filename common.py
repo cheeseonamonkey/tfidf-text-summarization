@@ -3,9 +3,9 @@ import sys
 
 
 def main():
-    xmltext = load_corpus(sys.argv[1].split("/")[-2] + ".zip")[
-        sys.argv[1].split("/")[-1]
-    ]
+    zipfilename = sys.argv[1]
+    targetfile = sys.argv[2]
+    xmltext = load_corpus(zipfilename)[targetfile]
     text = gettext(xmltext)
     count = sorted(
         Counter(stemwords(tokenize(text))).items(), key=lambda x: x[1], reverse=True
