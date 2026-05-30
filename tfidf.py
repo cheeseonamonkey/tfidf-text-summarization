@@ -66,14 +66,6 @@ def compute_tfidf(corpus: dict) -> TfidfVectorizer:
         analyzer="word",
         preprocessor=gettext,
         tokenizer=tokenizer,
-        stop_words="english",  # even more stop words
-        decode_error="ignore",
-    )
-    tfidf = TfidfVectorizer(
-        input="content",
-        analyzer="word",
-        preprocessor=gettext,
-        tokenizer=tokenizer,
         stop_words="english",
         decode_error="ignore",
     )
@@ -90,19 +82,15 @@ def summarize(tfidf: TfidfVectorizer, text: str, n: int):
     up to n (word,score) pairs in a list. Discard any terms with
     scores < 0.09. Sort the (word,score) pairs by TFIDF score in reverse order.
     """
-    return_lst = []
     tfidf_matrix = tfidf.transform([text])
+    scores = tfidf_matrix.T.todense().A1
     word_indexes = tfidf_matrix.nonzero()[1]
-    for index in word_indexes:
-        if float(tfidf_matrix.T.todense()[index]) >= 0.09:
-            return_lst.append(
-                (
-                    tfidf.get_feature_names_out()[index],
-                    float(tfidf_matrix.T.todense()[index]),
-                )
-            )
-    return_lst = sorted(return_lst, key=lambda x: x[1], reverse=True)[:n]
-    return return_lst
+    return_lst = [
+        (tfidf.get_feature_names_out()[i], float(scores[i]))
+        for i in word_indexes
+        if float(scores[i]) >= 0.09
+    ]
+    return sorted(return_lst, key=lambda x: x[1], reverse=True)[:n]
 
 
 def load_corpus(zipfilename: str) -> dict:
